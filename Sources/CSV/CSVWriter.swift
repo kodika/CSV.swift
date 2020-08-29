@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class CSVWriter {
+public class CSVWriter: NSObject {
 
     public struct Configuration {
 
@@ -161,11 +161,11 @@ extension CSVWriter {
 
 extension CSVWriter {
 
-    public func beginNewRow() {
+    @objc public func beginNewRow() {
         isFirstField = true
     }
 
-    public func write(field value: String, quoted: Bool = false) throws {
+    @objc public func write(field value: String, quoted: Bool = false) throws {
         if isFirstRow {
             isFirstRow = false
         } else {
@@ -201,7 +201,7 @@ extension CSVWriter {
         }
     }
 
-    public func write(row values: [String], quotedAtIndex: ((Int) -> Bool) = { _ in false }) throws {
+    @objc public func write(row values: [String], quotedAtIndex: ((Int) -> Bool) = { _ in false }) throws {
         beginNewRow()
         for (i, value) in values.enumerated() {
             try write(field: value, quoted: quotedAtIndex(i))
